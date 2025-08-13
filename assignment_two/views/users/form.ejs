@@ -1,0 +1,59 @@
+<h1 style="font-family: Arial, sans-serif; text-align: center; color: #333; margin-bottom: 30px;">
+  <%= user._id ? 'Edit User' : 'Add User' %>
+</h1>
+
+<form method="post" 
+      action="<%= user._id ? '/users/edit/' + user._id : '/users/add' %>" 
+      style="max-width: 500px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9; font-family: Arial, sans-serif;">
+  
+  <div style="margin-bottom: 15px;">
+    <label style="display: block; font-weight: bold; margin-bottom: 5px;">Name:</label>
+    <input 
+      name="name" 
+      value="<%= user.name || '' %>" 
+      required 
+      style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+  </div>
+
+  <div style="margin-bottom: 15px;">
+    <label style="display: block; font-weight: bold; margin-bottom: 5px;">Email:</label>
+    <input 
+      name="email" 
+      type="email" 
+      value="<%= user.email || '' %>" 
+      <%= user._id ? 'readonly' : 'required' %> 
+      style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: <%= user._id ? '#e9ecef' : 'white' %>;" />
+  </div>
+
+  <div style="margin-bottom: 15px;">
+    <label style="display: block; font-weight: bold; margin-bottom: 5px;">Role:</label>
+    <select 
+      name="role" 
+      style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+      <% ['Super Admin','Admin','User'].forEach(r => { %>
+        <option value="<%= r %>" <%= user.role === r ? 'selected' : '' %>><%= r %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <% if (user._id) { %>
+    <div style="margin-bottom: 15px;">
+      <label style="font-weight: bold;">
+        <input type="checkbox" name="isActive" <%= user.isActive ? 'checked' : '' %> />
+        Active
+      </label>
+    </div>
+  <% } %>
+
+  <% if (error) { %>
+    <p style="color: red; font-weight: bold; text-align: center;"><%= error %></p>
+  <% } %>
+
+  <div style="text-align: center;">
+    <button 
+      type="submit" 
+      style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+      <%= user._id ? 'Save' : 'Add' %>
+    </button>
+  </div>
+</form>

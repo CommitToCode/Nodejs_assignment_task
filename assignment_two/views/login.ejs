@@ -1,0 +1,53 @@
+<h1 style="font-family: Arial, sans-serif; text-align: center; color: #333; margin-bottom: 30px;">Login</h1>
+
+<form method="post" action="/login" 
+      style="max-width: 400px; margin: 0 auto 30px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9; font-family: Arial, sans-serif;">
+  
+  <div style="margin-bottom: 15px;">
+    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Email:</label>
+    <input 
+      type="email" 
+      name="email" 
+      required 
+      style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+  </div>
+
+  <div style="margin-bottom: 15px;">
+    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Password:</label>
+    <input 
+      type="password" 
+      name="password" 
+      required 
+      style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" />
+  </div>
+
+  <% if (error) { %>
+    <p style="color: red; text-align: center; font-weight: bold;"><%= error %></p>
+  <% } %>
+
+  <div style="text-align: center; margin-top: 20px;">
+    <button 
+      type="submit" 
+      style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+      Login
+    </button>
+  </div>
+</form>
+
+<div style="text-align: center; font-family: Arial, sans-serif;">
+  <form action="/logout" method="POST" style="display: inline;">
+    <button 
+      type="submit" 
+      style="margin: 0 10px; padding: 8px 14px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">
+      Logout
+    </button>
+  </form>
+
+  <form action="/users/add" method="GET" style="display: inline;">
+    <button 
+      type="submit" 
+      style="margin: 0 10px; padding: 8px 14px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">
+      Register
+    </button>
+  </form>
+</div>

@@ -1,0 +1,41 @@
+<h1 style="font-family: Arial, sans-serif; text-align: center; color: #333;">Users</h1>
+
+<div style="text-align: center; margin-bottom: 20px;">
+  <a href="/users/add" 
+     style="padding: 10px 15px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px;">
+    + Add New
+  </a>
+</div>
+
+<table style="width: 90%; max-width: 1000px; margin: 0 auto; border-collapse: collapse; font-family: Arial, sans-serif;">
+  <thead>
+    <tr style="background-color: #f2f2f2;">
+      <th style="padding: 12px; border: 1px solid #ddd;">Name</th>
+      <th style="padding: 12px; border: 1px solid #ddd;">Email</th>
+      <th style="padding: 12px; border: 1px solid #ddd;">Role</th>
+      <th style="padding: 12px; border: 1px solid #ddd;">Active</th>
+      <th style="padding: 12px; border: 1px solid #ddd;">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.forEach(u => { %>
+      <tr style="background-color: #fff; border-bottom: 1px solid #ddd;">
+        <td style="padding: 10px; border: 1px solid #ddd;"><%= u.name %></td>
+        <td style="padding: 10px; border: 1px solid #ddd;"><%= u.email %></td>
+        <td style="padding: 10px; border: 1px solid #ddd;"><%= u.role %></td>
+        <td style="padding: 10px; border: 1px solid #ddd;"><%= u.isActive ? 'Yes' : 'No' %></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">
+          <a href="/users/edit/<%= u._id %>" 
+             style="margin-right: 10px; color: #007bff; text-decoration: none;">Edit</a>
+          <form method="post" action="/users/delete/<%= u._id %>" style="display:inline;">
+            <button 
+              type="submit" 
+              style="background-color: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">
+              Delete
+            </button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
