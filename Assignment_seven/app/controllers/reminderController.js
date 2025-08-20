@@ -42,9 +42,7 @@ const editReminder = asyncHandler(async (req, res) => {
   res.json(updatedReminder);
 });
 
-// @desc    Delete a reminder
-// @route   DELETE /api/reminders/:id
-// @access  Private
+
 const deleteReminder = asyncHandler(async (req, res) => {
   const reminder = await Reminder.findById(req.params.id);
 

@@ -41,9 +41,7 @@ const weeklySummary = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc    Get task statistics
-// @route   GET /api/reports/stats
-// @access  Private
+
 const taskStatistics = asyncHandler(async (req, res) => {
   const totalTasks = await Task.countDocuments({ user: req.user.id });
   const completedTasks = await Task.countDocuments({

@@ -1,6 +1,6 @@
 const Task = require("../models/Task");
 
-// Add a new task
+
 const addTask = async (req, res) => {
   try {
     const {
@@ -13,7 +13,7 @@ const addTask = async (req, res) => {
       labels,
     } = req.body;
 
-    // Validate required fields
+    
     if (!title) {
       return res.status(400).json({ message: "Title is required" });
     }
@@ -21,7 +21,7 @@ const addTask = async (req, res) => {
       return res.status(400).json({ message: "User ID is required" });
     }
 
-    // Create new task
+    
     const newTask = await Task.create({
       userId,
       title,
@@ -45,7 +45,6 @@ const addTask = async (req, res) => {
   }
 };
 
-// Edit a task
 const editTask = (req, res) => {
   const { id } = req.params;
   const { title, description } = req.body;
@@ -57,23 +56,21 @@ const editTask = (req, res) => {
   });
 };
 
-// Delete a task
 const deleteTask = (req, res) => {
   const { id } = req.params;
 
-  // DB delete logic placeholder
+  
   res.json({ message: `Task ${id} deleted successfully` });
 };
 
-// Mark task as completed
 const markTaskCompleted = (req, res) => {
   const { id } = req.params;
 
-  // DB update logic placeholder
+  
   res.json({ message: `Task ${id} marked as completed` });
 };
 
-// List all tasks
+
 const listTasks = async (req, res) => {
   try {
     const tasks = await Task.find(); 
@@ -85,11 +82,11 @@ const listTasks = async (req, res) => {
   }
 };
 
-// Reorder tasks
-const reorderTasks = (req, res) => {
-  const { order } = req.body; // order is expected as an array of IDs in the new order
 
-  // Reorder logic placeholder
+const reorderTasks = (req, res) => {
+  const { order } = req.body; 
+
+  
   res.json({ message: "Tasks reordered successfully", newOrder: order });
 };
 

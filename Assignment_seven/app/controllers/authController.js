@@ -12,19 +12,19 @@ exports.signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // Check if user already exists
+    
     let existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "Email already registered" });
     }
 
-    // Hash password
+    
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create verification token
+    
     const verificationToken = crypto.randomBytes(32).toString("hex");
 
-    // Save user
+  
     const user = new User({
       name,
       email,
@@ -47,11 +47,11 @@ exports.signup = async (req, res) => {
   }
 };
 
-// @desc    Verify Email
+
 exports.verifyEmail = async (req, res) => {
   try {
     const { email, otp } = req.body;
-    // Check if all required fields are provided
+    
     if (!email || !otp) {
       return res
         .status(400)
@@ -59,20 +59,20 @@ exports.verifyEmail = async (req, res) => {
     }
     const Userexisting = await User.findOne({ email });
 
-    // Check if email doesn't exists
+    
     if (!Userexisting) {
       return res
         .status(404)
         .json({ status: "failed", message: "Email doesn't exists" });
     }
 
-    // Check if email is already verified
+  
     if (Userexisting.isVerified==true) {
       return res
         .status(400)
         .json({ status: false, message: "Email is already verified" });
     }
-    // Check if there is a matching email verification OTP
+  
     const emailVerification = await otpModel.findOne({
       userId: Userexisting._id,
       otp,
@@ -88,25 +88,25 @@ exports.verifyEmail = async (req, res) => {
       }
       return res.status(400).json({ status: false, message: "Invalid OTP" });
     }
-    // Check if OTP is expired
+    
     const currentTime = new Date();
     // 15 * 60 * 1000 calculates the expiration period in milliseconds(15 minutes).
     const expirationTime = new Date(
       emailVerification.createdAt.getTime() + 15 * 60 * 1000
     );
     if (currentTime > expirationTime) {
-      // OTP expired, send new OTP
+
       await sendEmailVerificationOTP(req, existingUser);
       return res.status(400).json({
         status: "failed",
         message: "OTP expired, new OTP sent to your email",
       });
     }
-    // OTP is valid and not expired, mark email as verified
+    
     Userexisting.isVerified = true;
     await Userexisting.save();
 
-    // Delete email verification document
+
     await otpModel.deleteMany({ userId: Userexisting._id });
     return res
       .status(200)
@@ -120,7 +120,7 @@ exports.verifyEmail = async (req, res) => {
   }
 };
 
-// @desc    User Login
+
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -138,7 +138,7 @@ exports.login = async (req, res) => {
         message: "user not found",
       });
     }
-    // Check if user verified
+    
     if (!user.isVerified) {
       return res
         .status(401)

@@ -2,10 +2,10 @@ const  transporter  = require("../config/EmailConfig")
 const otpVerifyModel=require('../models/otpModel')
 
 const sendEmailVerificationOTP=async(req, user)=>{
-    // Generate a random 4-digit number
+  
   const otp = Math.floor(1000 + Math.random() * 9000);
 
-  // Save OTP in Database
+  
   const userData=await new otpVerifyModel({ userId: user._id, otp: otp }).save();
   console.log('Data',userData);
   
