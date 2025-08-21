@@ -1,0 +1,16 @@
+const express=require('express')
+const AuthController = require('../controller/AuthController')
+const { Authcheck } = require('../middleware/Authcheck')
+const userimageupload = require('../helper/userimageupload')
+const router=express.Router()
+
+router.post('/register',userimageupload.single('image'),AuthController.register)
+router.post('/login',AuthController.login)
+router.post('/verifyotp',AuthController.verifyotp)
+router.post('/resendotp',AuthController.resendotp)
+router.get('/user/profile',Authcheck,AuthController.profile)
+router.get('/Editprofile/:id',Authcheck,AuthController.editprofile)
+router.post('/updateprofile/:id',Authcheck,userimageupload.single('image'),AuthController.updateprofile)
+router.delete('/deleteprofile/:id',Authcheck,AuthController.deleteprofile)
+router.post('/sendlist',Authcheck,AuthController.sendProductListEmail)
+module.exports=router
