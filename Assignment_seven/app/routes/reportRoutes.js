@@ -8,13 +8,59 @@ const { AuthCheck } = require("../middleware/auth");
 
 const router = express.Router();
 
-// Daily summary
+/**
+ * @swagger
+ * tags:
+ *   name: Reports
+ *   description: Task and activity reporting routes
+ */
+
+/**
+ * @swagger
+ * /daily:
+ *   get:
+ *     tags: [Reports]
+ *     summary: Get daily summary
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Daily summary data
+ *       401:
+ *         description: Unauthorized
+ */
 router.get("/daily", AuthCheck, dailySummary);
 
-// Weekly summary
+/**
+ * @swagger
+ * /weekly:
+ *   get:
+ *     tags: [Reports]
+ *     summary: Get weekly summary
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Weekly summary data
+ *       401:
+ *         description: Unauthorized
+ */
 router.get("/weekly", AuthCheck, weeklySummary);
 
-// Task statistics
+/**
+ * @swagger
+ * /stats:
+ *   get:
+ *     tags: [Reports]
+ *     summary: Get task statistics
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Task statistics data
+ *       401:
+ *         description: Unauthorized
+ */
 router.get("/stats", AuthCheck, taskStatistics);
 
 module.exports = router;

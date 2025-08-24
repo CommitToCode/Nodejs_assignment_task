@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const connectDB = require('./app/config/dbcon');
+const { swaggerUi, specs } = require("./swagger");
+
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
@@ -18,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/uploads', express.static('uploads'));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 // Routes
 app.use('/api/auth', require('./app/routes/authroutes'));

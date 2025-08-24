@@ -5,6 +5,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const { swaggerUi, specs } = require("./swagger");
 
 const connectDB = require('./app/config/dbcon');
 const errorHandler = require('./app/middleware/errorhandler');
@@ -25,6 +26,7 @@ app.use(morgan('dev'));
 
 app.use('/uploads', express.static(path.join(__dirname, process.env.UPLOAD_DIR || 'uploads')));
 
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use('/api/auth', require('./app/routes/authroutes'));
 app.use('/api/users', require('./app/routes/userroutes'));

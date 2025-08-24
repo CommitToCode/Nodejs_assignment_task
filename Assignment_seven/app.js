@@ -1,6 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const { swaggerUi, specs } = require("./swagger");
+
 const path = require("path");
 const dbCon = require("./app/config/db");
 
@@ -17,6 +19,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 // Routes
 app.use("/api/auth", require("./app/routes/authRoutes"));
@@ -30,5 +33,5 @@ app.use("/api/reports", require("./app/routes/reportRoutes"));
 // Server listen
 const port = process.env.PORT || 2809;
 app.listen(port, () => {
-  console.log(`🚀 Server running on port ${port}`);
+  console.log(` Server running on port ${port}`);
 });
